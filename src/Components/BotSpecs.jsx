@@ -5,24 +5,24 @@ import BotCard from './BotCard';
 const BotSpecs = ({ bots, army, setArmy }) => {
   const { botId } = useParams();
   const history = useNavigate();
-
+ 
   // Find the bot with the given ID
-  const bot = bots.find((bot) => bot.id === parseInt(botId));
-
+  const bot = bots.find((bot) => bot.id === botId);
+  console.log(botId)
   const enlistBot = () => {
     // Check if the bot is already enlisted
     const isEnlisted = army.some((enlistedBot) => enlistedBot.id === bot.id);
 
     if (!isEnlisted) {
       setArmy([...army, bot]); // Enlist the bot into the army
-      history.push('/'); // Redirect back to the bot collection
+      history('/'); // Redirect back to the bot collection
     } else {
       alert('This bot is already enlisted!');
     }
   };
 
   const goBack = () => {
-    history.goBack(); // Navigate back to the previous page
+    history("/"); // Navigate back to the previous page
   };
 
   return (

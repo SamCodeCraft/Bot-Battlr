@@ -17,7 +17,7 @@ const App = () => {
     fetch('http://localhost:3000/bots')
       .then(response => response.json())
       .then(data => {
-        setBots(data.bots);
+        setBots(data);
       })
       .catch(error => {
         console.error('Error fetching bots:', error);
