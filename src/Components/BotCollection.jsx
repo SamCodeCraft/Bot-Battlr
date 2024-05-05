@@ -5,9 +5,9 @@ import BotCard from './BotCard';
 const BotCollection = ({ bots, setArmy, army }) => {
   const enlistBot = (bot) => {
     // Check if the bot is already enlisted
-    const isEnlisted = army.some((enlistedBot) => enlistedBot.id === bot.id);
+    const enlisted = army.find(enlistedBot => enlistedBot.id === bot.id) !== undefined;
 
-    if (!isEnlisted) {
+    if (!enlisted) {
       setArmy([...army, bot]); // Enlist the bot into the army
     } else {
       alert('This bot is already enlisted!');
@@ -33,4 +33,5 @@ const BotCollection = ({ bots, setArmy, army }) => {
 };
 
 export default BotCollection;
+
 

@@ -1,15 +1,19 @@
+
 import React, { useState } from 'react';
 
 const FilterBar = ({ classes, filterBy }) => {
   const [selectedClasses, setSelectedClasses] = useState([]);
 
   const handleCheckboxChange = (classType) => {
-    // Toggle the selected class
-    const updatedClasses = selectedClasses.includes(classType)
-      ? selectedClasses.filter((c) => c !== classType)
-      : [...selectedClasses, classType];
+    let updatedClasses;
+    if (selectedClasses.includes(classType)) {
+      updatedClasses = selectedClasses.filter(c => c !== classType);
+    } else {
+      updatedClasses = [...selectedClasses, classType];
+    }
+
     setSelectedClasses(updatedClasses);
-    filterBy(updatedClasses); // Call filterBy function with the selected classes
+    filterBy(updatedClasses); // Update filter based on selection
   };
 
   return (
