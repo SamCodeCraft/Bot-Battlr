@@ -25,14 +25,14 @@ const BotSpecs = ({ bots, army, setArmy }) => {
     history("/"); // Navigate back to the previous page
   };
 
-   const dischargeBot = () => {
+   const deleteBot = () => {
    // Check if the bot is already deleted
-   const isDischarged = army.find((dischargeBot) => dischargeBot.id === bot.id)
-   if (!isDischarged) {
+   const isDeleted = army.find((deleteBot) => deleteBot.id === bot.id)
+   if (!isDeleted) {
      setArmy([...army, bot]); // discharge the bot from  the army
      history('/'); // Redirect back to the bot collection
    } else {
-     alert('This bot is already discharged!');
+     alert('This bot is already deleted!');
    }
  };
 
@@ -45,7 +45,7 @@ const BotSpecs = ({ bots, army, setArmy }) => {
           <div className="bot-actions">
             <button onClick={goBack}>Go Back</button>
             <button onClick={enlistBot}>Enlist</button>
-            <button onClick={dischargeBot}>Delete</button>
+            <button onClick={deleteBot}>Delete</button>
           </div>
         </>
       ) : (
