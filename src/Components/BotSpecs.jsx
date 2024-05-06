@@ -11,7 +11,7 @@ const BotSpecs = ({ bots, army, setArmy }) => {
   console.log(botId)
   const enlistBot = () => {
     // Check if the bot is already enlisted
-    const isEnlisted = army.some((enlistedBot) => enlistedBot.id === bot.id);
+    const isEnlisted = army.find((enlistedBot) => enlistedBot.id === bot.id);
 
     if (!isEnlisted) {
       setArmy([...army, bot]); // Enlist the bot into the army
@@ -25,6 +25,17 @@ const BotSpecs = ({ bots, army, setArmy }) => {
     history("/"); // Navigate back to the previous page
   };
 
+   const dischargeBot = () => {
+   // Check if the bot is already deleted
+   const isDischarged = army.find((dischargeBot) => dischargeBot.id === bot.id)
+   if (!isDischarged) {
+     setArmy([...army, bot]); // discharge the bot from  the army
+     history('/'); // Redirect back to the bot collection
+   } else {
+     alert('This bot is already discharged!');
+   }
+ };
+
   return (
     <div className="bot-specs">
       {bot ? (
@@ -34,6 +45,7 @@ const BotSpecs = ({ bots, army, setArmy }) => {
           <div className="bot-actions">
             <button onClick={goBack}>Go Back</button>
             <button onClick={enlistBot}>Enlist</button>
+            <button onClick={dischargeBot}>Delete</button>
           </div>
         </>
       ) : (

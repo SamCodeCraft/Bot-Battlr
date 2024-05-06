@@ -31,6 +31,7 @@ const App = () => {
           <Route path="/" element={<BotCollection bots={bots} setArmy={setArmy} army={army} />} exact />
           <Route path="/your-bot-army" element={<YourBotArmy army={army} setArmy={setArmy} />} />
           <Route path="/bots/:botId" element={<BotSpecs bots={bots} army={army} setArmy={setArmy} />} />
+          
         </Routes>
       </div>
     </Router>
