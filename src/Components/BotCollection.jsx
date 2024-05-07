@@ -27,7 +27,7 @@ const BotCollection = ({ setBots, bots, setArmy, army }) => {
     const updatedBots = bots.filter((bot) => bot.id !== botId);
     setBots(updatedBots);
     // Remove the bot from the backend
-    fetch(`http://localhost:3000/bots/${botId}`, {
+    fetch(`https://json-sever-bot-battlr.onrender.com/bots/${botId}`, {
       method: 'DELETE',
     }).then(() => {
       console.log('Bot successfully deleted');

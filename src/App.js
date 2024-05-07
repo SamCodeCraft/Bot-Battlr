@@ -15,7 +15,7 @@ const App = () => {
   }, []);
 
   function fetchBots() {
-    fetch('http://localhost:3000/bots')
+    fetch('https://json-sever-bot-battlr.onrender.com/bots')
       .then(response => response.json())
       .then(data => {
         setBots(data);
