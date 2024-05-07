@@ -2,12 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import BotCard from './BotCard';
 import { useNavigate } from 'react-router-dom';
+import SortBar from './SortBar';
+import { useState } from 'react';
 
 const BotCollection = ({ setBots, bots, setArmy, army }) => {
   console.log(bots)
 
+  const [option, setOption] = useState("")
   const navigate = useNavigate()
-  const option = useNavigate()
   const criteria = useNavigate()
   const enlistBot = (bot) => {
     // Check if the bot is already enlisted
@@ -34,46 +36,57 @@ const BotCollection = ({ setBots, bots, setArmy, army }) => {
     });
   };
 
+  function sortBy(event) {
 
-  return (
-    <div className="bot-collection">
+    setOption(event.target.value)
+  }
 
-      <button className="btn btn-sm btn-success" onClick={() => navigate("/Bot-Battlr/your-bot-army")}>View your bots</button>
-
-      <select class="form-select">
-        <option onClick={() => criteria("/")}>Sort by</option>
-        <option value="1">Health</option>
-        <option value="2">damage</option>
-        <option value="3">armor</option>
-      </select>
-
-      <select class="form-select" id="floatingSelect">
-        <option onClick={() => option("/")}>Filter by class</option>
-        <option value="1">Support</option>
-        <option value="2">Medic</option>
-        <option value="3">Assault</option>
-        <option value="4">Defender</option>
-        <option value="5">Captain</option>
-        <option value="6">Witch</option>
-      </select>
-
-      <h2>All Bots</h2>
-      <div className="bot-cards">
-        {bots.map((bot) => (
-          <div key={bot.id} className="bot-card">
-            <BotCard bot={bot} />
-            <div className="bot-actions">
-              <Link to={`/Bot-Battlr/bots/${bot.id}`}>View Details</Link>
-              <button onClick={() => enlistBot(bot)}>Enlist</button>
-              <button onClick={() => deleteBot(bot.id)}>Delete</button>
+  function handleSort(option) {
+    if (option === "health") {
+      return (a, b) => b.health - a.health
+    } else if (option === "damage") {
+      return (a, b) => b.damage - a.damage
+    } else if (option === "armor") {
+      return (a, b) => b.armor - a.armor
+    } else {
+      return () => 0
+    }
+  }
 
 
-            </div>
+
+return (
+  <div className="bot-collection">
+
+    <button className="btn btn-sm btn-success" onClick={() => navigate("/Bot-Battlr/your-bot-army")}>View your bots</button>
+    <SortBar option={option} sortBy={sortBy} />
+    <select class="form-select" id="floatingSelect">
+      <option onClick={() => option("/")}>Filter by class</option>
+      <option value="1">Support</option>
+      <option value="2">Medic</option>
+      <option value="3">Assault</option>
+      <option value="4">Defender</option>
+      <option value="5">Captain</option>
+      <option value="6">Witch</option>
+    </select>
+
+    <h2>All Bots</h2>
+    <div className="bot-cards">
+      {bots.sort(handleSort(option)).map((bot) => (
+        <div key={bot.id} className="bot-card">
+          <BotCard bot={bot} />
+          <div className="bot-actions">
+            <Link to={`/Bot-Battlr/bots/${bot.id}`}>View Details</Link>
+            <button onClick={() => enlistBot(bot)}>Enlist</button>
+            <button onClick={() => deleteBot(bot.id)}>Delete</button>
+
+
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
-  );
+  </div>
+);
 };
 
 export default BotCollection;
