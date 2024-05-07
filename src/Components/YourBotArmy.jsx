@@ -18,7 +18,7 @@ const YourBotArmy = ({ army, setArmy }) => {
             <BotCard bot={bot} />
             <div className="bot-actions">
               <button onClick={() => releaseBot(bot.id)}>Release</button>
-              <button onClick={() => navigate("/")}>Go back</button>
+              <button onClick={() => navigate("/Bot-Battlr")}>Go back</button>
             </div>
           </div>
         ))}

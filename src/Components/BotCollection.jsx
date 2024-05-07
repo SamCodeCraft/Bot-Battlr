@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import BotCard from './BotCard';
 import { useNavigate } from 'react-router-dom';
 
-const BotCollection = ({ bots, setArmy, army }) => {
+const BotCollection = ({ setBots, bots, setArmy, army }) => {
   console.log(bots)
 
   const navigate = useNavigate()
@@ -20,34 +20,35 @@ const BotCollection = ({ bots, setArmy, army }) => {
     }
   };
 
-  const deleteBot = async (botId) => {
-    try {
-      // Remove the bot from the frontend
-      const updatedArmy = army.filter((bot) => bot.id !== botId);
-      setArmy(updatedArmy);
-
-      // Remove the bot from the backend
-      await fetch(`http://localhost:3000/bots/${botId}`, {
-        method: 'DELETE',
-      });
-    } catch (error) {
+  const deleteBot = (botId) => {
+    // Remove the bot from the frontend
+    const updatedBots = bots.filter((bot) => bot.id !== botId);
+    setBots(updatedBots);
+    // Remove the bot from the backend
+    fetch(`http://localhost:3000/bots/${botId}`, {
+      method: 'DELETE',
+    }).then(() => {
+      console.log('Bot successfully deleted');
+    }).catch((error) => {
       console.error('Error discharging bot:', error);
-    }
+    });
   };
+
 
   return (
     <div className="bot-collection">
-      <button className="btn btn-sm btn-success" onClick={() => navigate("/your-bot-army")}>View your bots</button>
+
+      <button className="btn btn-sm btn-success" onClick={() => navigate("/Bot-Battlr/your-bot-army")}>View your bots</button>
 
       <select class="form-select">
-        <option onClick={() => criteria("/")}>Sort your bots</option>
+        <option onClick={() => criteria("/")}>Sort by</option>
         <option value="1">Health</option>
         <option value="2">damage</option>
         <option value="3">armor</option>
       </select>
 
       <select class="form-select" id="floatingSelect">
-        <option onClick={() => option("/")}>Filter your bots</option>
+        <option onClick={() => option("/")}>Filter by class</option>
         <option value="1">Support</option>
         <option value="2">Medic</option>
         <option value="3">Assault</option>
@@ -55,17 +56,17 @@ const BotCollection = ({ bots, setArmy, army }) => {
         <option value="5">Captain</option>
         <option value="6">Witch</option>
       </select>
-      
+
       <h2>All Bots</h2>
       <div className="bot-cards">
         {bots.map((bot) => (
           <div key={bot.id} className="bot-card">
             <BotCard bot={bot} />
             <div className="bot-actions">
-              <Link to={`/bots/${bot.id}`}>View Details</Link>
+              <Link to={`/Bot-Battlr/bots/${bot.id}`}>View Details</Link>
               <button onClick={() => enlistBot(bot)}>Enlist</button>
-              <button onClick={() => deleteBot(bot)}>Delete</button>
-              
+              <button onClick={() => deleteBot(bot.id)}>Delete</button>
+
 
             </div>
           </div>

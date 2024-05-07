@@ -22,9 +22,9 @@ const FilterBar = ({ classes, filterBy }) => {
       {classes.map((classType) => (
         <label key={classType}>
           <input
-            type="checkbox"
+            type="select menu"
             value={classType}
-            checked={selectedClasses.includes(classType)}
+            selected={selectedClasses.includes(classType)}
             onChange={() => handleCheckboxChange(classType)}
           />
           {classType}

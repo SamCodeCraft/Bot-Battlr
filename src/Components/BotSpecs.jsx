@@ -15,14 +15,14 @@ const BotSpecs = ({ bots, army, setArmy }) => {
 
     if (!isEnlisted) {
       setArmy([...army, bot]); // Enlist the bot into the army
-      history('/'); // Redirect back to the bot collection
+      history('/Bot-Battlr'); // Redirect back to the bot collection
     } else {
       alert('This bot is already enlisted!');
     }
   };
 
   const goBack = () => {
-    history("/"); // Navigate back to the previous page
+    history("/Bot-Battlr"); // Navigate back to the previous page
   };
 
    const deleteBot = () => {
@@ -30,7 +30,7 @@ const BotSpecs = ({ bots, army, setArmy }) => {
    const isDeleted = army.find((deleteBot) => deleteBot.id === bot.id)
    if (!isDeleted) {
      setArmy([...army, bot]); // discharge the bot from  the army
-     history('/'); // Redirect back to the bot collection
+     history('/Bot-Battlr'); // Redirect back to the bot collection
    } else {
      alert('This bot is already deleted!');
    }
